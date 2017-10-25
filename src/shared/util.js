@@ -261,11 +261,23 @@ function getVerbosityLevel() {
   return verbosity;
 }
 
+//TAL
+var _globalHandler;;
+function setupGlobalHandler(handler) {
+  _globalHandler = handler;
+};
+//TAL
+
 // A notice for devs. These are good for things that are helpful to devs, such
 // as warning that Workers were disabled, which is important to devs but not
 // end users.
 function info(msg) {
   if (verbosity >= VERBOSITY_LEVELS.infos) {
+
+     //TAL
+     _globalHandler.send('pdfjs_error', msg);
+     //TAL
+
     console.log('Info: ' + msg);
   }
 }
@@ -273,6 +285,11 @@ function info(msg) {
 // Non-fatal warnings.
 function warn(msg) {
   if (verbosity >= VERBOSITY_LEVELS.warnings) {
+
+     //TAL
+    _globalHandler.send('pdfjs_error', msg);
+    //TAL
+
     console.log('Warning: ' + msg);
   }
 }
@@ -1714,4 +1731,8 @@ export {
   utf8StringToString,
   warn,
   unreachable,
+
+  //TAL
+  setupGlobalHandler
+  //TAL
 };

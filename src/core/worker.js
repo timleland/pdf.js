@@ -17,7 +17,12 @@ import {
   arrayByteLength, arraysToBytes, assert, createPromiseCapability, info,
   InvalidPDFException, isNodeJS, MessageHandler, MissingPDFException,
   PasswordException, setVerbosityLevel, UnexpectedResponseException,
-  UnknownErrorException, UNSUPPORTED_FEATURES, warn, XRefParseException
+  UnknownErrorException, UNSUPPORTED_FEATURES, warn, XRefParseException,
+
+  //TAL
+  setupGlobalHandler
+  //TAL
+
 } from '../shared/util';
 import { LocalPdfManager, NetworkPdfManager } from './pdf_manager';
 import { Ref } from './primitives';
@@ -314,6 +319,11 @@ var PDFWorkerStream = (function PDFWorkerStreamClosure() {
 
 var WorkerMessageHandler = {
   setup(handler, port) {
+
+     //TAL
+    setupGlobalHandler(handler);
+    //TAL
+
     var testMessageProcessed = false;
     handler.on('test', function wphSetupTest(data) {
       if (testMessageProcessed) {

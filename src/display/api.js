@@ -1436,6 +1436,12 @@ var PDFWorker = (function PDFWorkerClosure() {
             console.error.apply(console, data);
           });
 
+          //TAL
+          messageHandler.on('pdfjs_error', function(data) {
+            __PDFJSERROR(data);
+          });
+          //TAL
+
           messageHandler.on('ready', (data) => {
             worker.removeEventListener('error', onWorkerError);
             if (this.destroyed) {
